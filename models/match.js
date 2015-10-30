@@ -1,11 +1,11 @@
 /**
- * models/matches.js
+ * models/match.js
  */
 
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-	var Matches = sequelize.define("Matches", {
+	var Match = sequelize.define("Match", {
 		id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 		date: DataTypes.DATE,
 		scoreTeam1: DataTypes.INTEGER,
@@ -13,12 +13,12 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		classMethods: {
 			associate: function(models) {
-				Matches.belongsTo(models.MatchDay, {as: 'matchDay'});
-				Matches.belongsTo(models.Team, {as: 'team1'});
-				Matches.belongsTo(models.Team, {as: 'team2'});
+				Match.belongsTo(models.MatchDay, {as: 'matchDay'});
+				Match.belongsTo(models.Team, {as: 'team1'});
+				Match.belongsTo(models.Team, {as: 'team2'});
 			}
 		}
 	});
 	
-	return Matches;
+	return Match;
 };
