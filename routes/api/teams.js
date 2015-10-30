@@ -22,7 +22,7 @@ router.post('/', function(req, res) {
 });
 
 /* GET get a team */
-router.post('/:id', function(req, res) {
+router.get('/:id', function(req, res) {
 	models.Team.findByPrimary(req.params.id)
 		.then(function(team) {
 			res.json(team);
