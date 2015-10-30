@@ -8,11 +8,7 @@ var router = express.Router();
 
 /* GET list of teams */
 router.get('/', function(req, res) {
-	models.Team.findAll().then(function(err, teams) {
-		if (err) {
-			res.send(err);
-		}
-		
+	models.Team.findAll().then(function(teams) {
 		res.json(teams);
 	});
 });
