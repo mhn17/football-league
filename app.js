@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 
-var port = process.env.PORT || 3000;
-
 var app = express();
 
 // view engine setup
@@ -55,12 +53,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-//START SERVER
-//=============================================================================
-
-app.listen(port);
-console.log('Server started and listening on port ' + port);
-
 
 module.exports = app;
