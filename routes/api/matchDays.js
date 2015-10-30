@@ -8,7 +8,7 @@ var router = express.Router();
 
 /* GET list of match days */
 router.get('/', function(req, res) {
-	models.MatchDay.findAll().then(function(err, matchDays) {
+	models.MatchDay.findAll().then(function(matchDays) {
 		res.json(matchDays);
 	});
 });
