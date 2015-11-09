@@ -3,3 +3,4 @@
 .settings/
 .tern-project
 node_modules/
+/nbproject/private/
