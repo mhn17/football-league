@@ -3,8 +3,8 @@
  */
 
 var TableRow = function() {
-	var position,
-		teamId,
+	var teamId,
+		teamName,
 		matchesPlayed,
 		matchesWon,
 		matchesDrawn,

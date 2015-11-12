@@ -2,16 +2,94 @@
  * services/tableService.js
  */
 
+var TableRow = require('./tableRow');
 
 /**
  * 
- * @param {type} matches All matches
+ * @param {array} matches All matches
  * @returns {nm$_tableService.TableService}
  */
 function TableService(matches) {
 	this.matches = matches;
 }
 
+/**
+ * 
+ * @param {Team} team
+ * @returns {TableRow}
+ */
+TableService.prototype.calculateTableRow = function(team) {
+	var self = this;
+	
+	var tableRow = new TableRow();
+	tableRow.teamId			= team.id;
+	tableRow.teamName		= team.name;
+	tableRow.matchesPlayed	= 0;
+	tableRow.matchesWon		= 0;
+	tableRow.matchesDrawn	= 0;
+	tableRow.matchesLost	= 0;
+	tableRow.goalsFor		= 0;
+	tableRow.goalsAgainst	= 0;
+	tableRow.goalDifference = 0;
+	tableRow.points			= 0;
+	
+	this.matches.forEach(function (match) {
+		if (match.team1Id === tableRow.teamId) {
+			tableRow.matchesPlayed++;
+			tableRow.goalsFor += match.scoreTeam1;
+			tableRow.goalsAgainst += match.scoreTeam2;
+			
+			switch (self.compareGoals(match.scoreTeam1, match.scoreTeam2)) {
+				case true:
+					tableRow.matchesWon++;
+					tableRow.points += 3;
+					break;
+				case false:
+					tableRow.matchesLost++;
+					break;
+				case null:
+					tableRow.matchesDrawn++;
+					tableRow.points += 1;
+					break;
+				default:
+					break;
+			}
+			
+		}
+		else if (match.team2Id === tableRow.teamId) {
+			tableRow.matchesPlayed++;
+			tableRow.goalsFor += match.scoreTeam2;
+			tableRow.goalsAgainst += match.scoreTeam1;
+			
+			switch (self.compareGoals(match.scoreTeam2, match.scoreTeam1)) {
+				case true:
+					tableRow.matchesWon++;
+					tableRow.points += 3;
+					break;
+				case false:
+					tableRow.matchesLost++;
+					break;
+				case null:
+					tableRow.matchesDrawn++;
+					tableRow.points += 1;
+					break;
+				default:
+					break;
+			}
+		}
+	});
+	
+	tableRow.goalDifference = tableRow.goalsFor - tableRow.goalsAgainst;
+	return tableRow;
+};
+
+/**
+ * Compare the direct matches between two teams
+ * 
+ * @param {type} team1Id
+ * @param {type} team2Id
+ * @returns {Boolean}
+ */
 TableService.prototype.compareDirectMatches = function(team1Id, team2Id) {
 	var team1TotalScore = 0;
 	var team2TotalScore = 0;
@@ -58,6 +136,7 @@ TableService.prototype.compareDirectMatches = function(team1Id, team2Id) {
 /**
  * Compare the goals shot in away games in the matches between the
  * two team
+ * 
  * @param {integer} team1Id
  * @param {integer} team1Id
  * @returns {Boolean}

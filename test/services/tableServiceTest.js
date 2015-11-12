@@ -14,9 +14,37 @@ describe('table service', function () {
 	});
 
 	describe('#calculateTableRow', function () {
-		it('should return an array with a table row where position, team, matches played, won, ' +
+		it('should return an array with a table row where teamId, teamName, matches played, won, ' +
 			'drawn, lost, goals for, goals against, goal difference, points are set', function () {
-				assert.fail(false, true, "ToDo");
+				var matches = [
+					{team1Id: 1, team2Id: 2, scoreTeam1: 0, scoreTeam2: 0},
+					{team1Id: 2, team2Id: 3, scoreTeam1: 1, scoreTeam2: 0},
+					{team1Id: 4, team2Id: 2, scoreTeam1: 2, scoreTeam2: 1},
+					{team1Id: 2, team2Id: 5, scoreTeam1: 3, scoreTeam2: 2},
+					{team1Id: 1, team2Id: 3, scoreTeam1: 0, scoreTeam2: 3},
+					{team1Id: 2, team2Id: 1, scoreTeam1: 1, scoreTeam2: 0},
+					{team1Id: 3, team2Id: 2, scoreTeam1: 2, scoreTeam2: 0},
+					{team1Id: 2, team2Id: 4, scoreTeam1: 3, scoreTeam2: 1},
+					{team1Id: 5, team2Id: 2, scoreTeam1: 0, scoreTeam2: 2},
+					{team1Id: 3, team2Id: 1, scoreTeam1: 1, scoreTeam2: 3}
+				];
+				var tableService = new TableService(matches);
+				var team = {
+					"id": 2,
+					"name": "teamName"
+				};
+				var tableRow = tableService.calculateTableRow(team);
+				
+				assert.equal(tableRow.teamId, 2, "team id should be 2");
+				assert.equal(tableRow.teamName, "teamName", "team name should be teamName");
+				assert.equal(tableRow.matchesPlayed, 8, "should be 8 matches played");
+				assert.equal(tableRow.matchesWon, 5, "should be 5 matches won");
+				assert.equal(tableRow.matchesDrawn, 1, "should be 1 matches drawn");
+				assert.equal(tableRow.matchesLost, 2, "should be 2 matches lost");
+				assert.equal(tableRow.goalsFor, 11, "should be 11 goals for");
+				assert.equal(tableRow.goalsAgainst, 7, "should be 7 goals against");
+				assert.equal(tableRow.goalDifference, 4, "should be 4 goal difference");
+				assert.equal(tableRow.points, 16, "should be 16 points");
 			});
 	});
 
