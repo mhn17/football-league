@@ -7,11 +7,30 @@ var TableRow = require('./tableRow');
 /**
  * 
  * @param {array} matches All matches
+ * @param {array} teams All teams
  * @returns {nm$_tableService.TableService}
  */
-function TableService(matches) {
+function TableService(matches, teams) {
 	this.matches = matches;
+	this.teams = teams;
 }
+
+/**
+ * Get the current table by calculating all values for the table rows
+ * and sorting the table
+ * 
+ * @returns {array} Sorted table
+ */
+TableService.prototype.getCurrentTable = function() {
+	var table = [];
+	
+	var self = this;
+	this.teams.forEach(function (team) {
+		table.push(self.calculateTableRow(team));
+	});
+	
+	return this.sortTable(table);
+};
 
 /**
  * 
@@ -35,53 +54,119 @@ TableService.prototype.calculateTableRow = function(team) {
 	
 	this.matches.forEach(function (match) {
 		if (match.team1Id === tableRow.teamId) {
-			tableRow.matchesPlayed++;
-			tableRow.goalsFor += match.scoreTeam1;
-			tableRow.goalsAgainst += match.scoreTeam2;
-			
-			switch (self.compareGoals(match.scoreTeam1, match.scoreTeam2)) {
-				case true:
-					tableRow.matchesWon++;
-					tableRow.points += 3;
-					break;
-				case false:
-					tableRow.matchesLost++;
-					break;
-				case null:
-					tableRow.matchesDrawn++;
-					tableRow.points += 1;
-					break;
-				default:
-					break;
-			}
-			
+			tableRow = self.updateTableRowForMatch(tableRow, match.scoreTeam1, match.scoreTeam2);			
 		}
 		else if (match.team2Id === tableRow.teamId) {
-			tableRow.matchesPlayed++;
-			tableRow.goalsFor += match.scoreTeam2;
-			tableRow.goalsAgainst += match.scoreTeam1;
-			
-			switch (self.compareGoals(match.scoreTeam2, match.scoreTeam1)) {
-				case true:
-					tableRow.matchesWon++;
-					tableRow.points += 3;
-					break;
-				case false:
-					tableRow.matchesLost++;
-					break;
-				case null:
-					tableRow.matchesDrawn++;
-					tableRow.points += 1;
-					break;
-				default:
-					break;
-			}
+			tableRow = self.updateTableRowForMatch(tableRow, match.scoreTeam2, match.scoreTeam1);
 		}
 	});
-	
 	tableRow.goalDifference = tableRow.goalsFor - tableRow.goalsAgainst;
 	return tableRow;
 };
+
+/**
+ * Helper method for calculating a table row
+ * 
+ * @param {TableRow} tableRow
+ * @param {int} score1
+ * @param {int} score2
+ * @return {TableRow} The update table row
+ */
+TableService.prototype.updateTableRowForMatch = function(tableRow, score1, score2) {
+	tableRow.matchesPlayed++;
+	tableRow.goalsFor += score1;
+	tableRow.goalsAgainst += score2;
+	switch (this.compareGoals(score1, score2)) {
+		case 1:
+			tableRow.matchesWon++;
+			tableRow.points += 3;
+			break;
+		case -1:
+			tableRow.matchesLost++;
+			break;
+		case 0:
+			tableRow.matchesDrawn++;
+			tableRow.points += 1;
+			break;
+		default:
+			break;
+	}
+	
+	return tableRow;
+};
+
+/**
+ * 
+ * @param {array} tableRows
+ * @returns {array}
+ */
+TableService.prototype.sortTable = function(tableRows) {
+	var self = this;
+	return tableRows.sort(function(tableRow1, tableRow2) {
+		// compare points
+		var result = self.comparePoints(tableRow1, tableRow2);
+		if (result === 0) {
+			
+			// compare goal difference
+			result = self.compareGoalDiff(tableRow1, tableRow2);
+			if (result === 0) {
+				
+				// compare goals shot for
+				result = self.compareGoalsFor(tableRow1, tableRow2);
+				if (result === 0) {
+					
+					// compare direct matches
+					result = self.compareDirectMatches(tableRow1.teamId, tableRow2.teamId);
+					if (result === 0) {
+						
+						// compare shot away goals in direct matches
+						result = self.compareShotAwayGoalsInDirectMatches(tableRow1.teamId, tableRow2.teamId);
+						if (result === 0) {
+							
+							// compare shot away goals in all matches
+							result = self.compareShotAwayGoalsInAllMatches(tableRow1.teamId, tableRow2.teamId);
+						}
+					}
+				}
+			}
+		}
+		
+		return result; 
+	}).reverse();
+};
+
+TableService.prototype.comparePoints = function(tableRow1, tableRow2) {
+	if (tableRow1.points > tableRow2.points) {
+		return 1;
+	} else if (tableRow1.points < tableRow2.points) {
+		return -1;
+	}
+
+	return 0;
+};
+
+/**
+ * Compare the goal difference of two teams
+ * 
+ * @param {TableRow} tableRow1
+ * @param {TableRow} tableRow2
+ * @returns {Boolean}
+ */
+TableService.prototype.compareGoalDiff = function(tableRow1, tableRow2) {
+	return this.compareGoals(tableRow1.goalDifference, tableRow2.goalDifference);
+};
+
+/**
+ * Compare goals shot by each team
+ * 
+ * @param {TableRow} tableRow1
+ * @param {TableRow} tableRow2
+ * @returns {Boolean}
+ */
+TableService.prototype.compareGoalsFor = function(tableRow1, tableRow2) {
+	return this.compareGoals(tableRow1.goalsFor, tableRow2.goalsFor);
+};
+
 
 /**
  * Compare the direct matches between two teams
@@ -122,15 +207,15 @@ TableService.prototype.compareDirectMatches = function(team1Id, team2Id) {
 	
 	// team 1 won in direct comparision
 	if (team1TotalScore > team2TotalScore) {
-		return true;
+		return 1;
 	}
 	// team 1 lost in direct comparision
 	else if (team1TotalScore < team2TotalScore) {
-		return false;
+		return -1;
 	}
 
 	// team 1 and team 2 draw in direct comparison
-	return null;
+	return 0;
 };
 
 /**
@@ -165,15 +250,15 @@ TableService.prototype.compareShotAwayGoalsInDirectMatches = function (team1Id, 
 
 	// team 1 shot more goals in away game
 	if (awayMatch.scoreTeam2 > homeMatch.scoreTeam2) {
-		return true;
+		return 1;
 	}
 	// team 2 shot more goals in away game
 	else if (homeMatch.scoreTeam2 > awayMatch.scoreTeam2) {
-		return false;
+		return -1;
 	}
 
 	// team 1 and team 2 shot the same number of goals in their away games
-	return null;
+	return 0;
 };
 
 /**
@@ -212,12 +297,12 @@ TableService.prototype.compareShotAwayGoalsInAllMatches = function (team1Id, tea
  */
 TableService.prototype.compareGoals = function (goalsTeam1, goalsTeam2) {
 	if (goalsTeam1 > goalsTeam2) {
-		return true;
+		return 1;
 	} else if (goalsTeam1 < goalsTeam2) {
-		return false;
+		return -1;
 	}
 
-	return null;
+	return 0;
 };
 
 /**
