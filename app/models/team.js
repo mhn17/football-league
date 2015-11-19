@@ -1,5 +1,5 @@
 /**
- * models/team.js
+ * app/models/team.js
  */
 
 "use strict";

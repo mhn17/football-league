@@ -1,5 +1,5 @@
 /**
- * routes/api/matchDays.js
+ * app/routes/api/matchDays.js
  */
 
 var models = require('../../models');

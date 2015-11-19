@@ -1,5 +1,5 @@
 /**
- * services/tableRow.js
+ * app/services/tableRow.js
  */
 
 var TableRow = function() {

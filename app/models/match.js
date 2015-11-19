@@ -1,5 +1,5 @@
 /**
- * models/match.js
+ * app/models/match.js
  */
 
 "use strict";

@@ -1,5 +1,5 @@
 /**
- * models/matchDay.js
+ * app/models/matchDay.js
  */
 
 "use strict";

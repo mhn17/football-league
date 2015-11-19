@@ -1,5 +1,5 @@
 /**
- * routes/api/teams.js
+ * app/routes/api/teams.js
  */
 
 var models = require('../../models');

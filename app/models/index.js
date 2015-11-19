@@ -1,3 +1,9 @@
+/**
+ * app/models/index.js
+ * 
+ * Sequelize file for gathering all models
+ */
+
 'use strict';
 
 var fs        = require('fs');

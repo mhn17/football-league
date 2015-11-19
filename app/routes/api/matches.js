@@ -1,5 +1,5 @@
 /**
- * routes/api/matches.js
+ * app/routes/api/matches.js
  */
 
 var models = require('../../models');

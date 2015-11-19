@@ -1,5 +1,5 @@
 /**
- * services/tableService.js
+ * app/services/tableService.js
  */
 
 var TableRow = require('./tableRow');
