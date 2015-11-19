@@ -9,6 +9,7 @@ var routes = require('./app/routes/index');
 var teams = require('./app/routes/api/teams');
 var matchDays = require('./app/routes/api/matchDays');
 var matches = require('./app/routes/api/matches');
+var table = require('./app/routes/api/table');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use('/', routes);
 app.use('/api/teams', teams);
 app.use('/api/match-days', matchDays);
 app.use('/api/matches', matches);
+app.use('/api/table', table);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
