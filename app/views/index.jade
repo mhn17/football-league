@@ -2,44 +2,74 @@ extends layout
 
 block content
 
-    .row
-        // teams
-        .col-md-4
-            h2.page-header Teams
-            #teamsWrapper
-                table.table.table-bordered.table-hover
-                    thead
-                        tr
-                            th Name
-                            th Team
-                            th Spieler 1
-                            th Spieler 2
-                    tbody
-                        each team in teams
-                            tr
-                                td #{team.name}
-                                td #{team.team}
-                                td #{team.player1}
-                                td #{team.player2}
-                                
-        // matches per match day
-        .col-md-8
-            h2.page-header Spieltage
-            #matchDaysWrapper
-                each matchDay in matchDays
-                    h3.page-header #{matchDay.number} (#{matchDay.dateFrom} - #{matchDay.dateTo})
-                    #matchesWrapper
-                        table.table.table-bordered.table-hover
-                            thead
-                                tr
-                                    th Datum
-                                    th Team 1
-                                    th Team 2
-                                    th Ergebnis
-                             tbody
-                                each match in matchDay.matches
-                                    tr
-                                        td #{match.date}
-                                        td #{match.team1.name}
-                                        td #{match.team2.name}
-                                        td #{match.scoreTeam1} : #{match.scoreTeam2}
+	.row
+		.col-md-6
+			.row
+				// table
+				h2.page-header Table
+				#tableWrapper
+					table.table.table-bordered.table-hover
+						thead
+							tr
+								th Platz
+								th Team
+								th Sp.
+								th g.
+								th u.
+								th v.
+								th Tore
+								th Diff.
+								th Punkte
+						tbody
+							each tableRow, index in table
+								tr
+									td #{index + 1}
+									td #{tableRow.teamName}
+									td #{tableRow.matchesPlayed}
+									td #{tableRow.matchesWon}
+									td #{tableRow.matchesDrawn}
+									td #{tableRow.matchesLost}
+									td #{tableRow.goalsFor}:#{tableRow.goalsAgainst}
+									td #{tableRow.goalDifference}
+									td #{tableRow.points}
+
+			.row
+				// teams			
+				h2.page-header Teams
+				#teamsWrapper
+					table.table.table-bordered.table-hover
+						thead
+							tr
+								th Name
+								th Team
+								th Spieler 1
+								th Spieler 2
+						tbody
+							each team in teams
+								tr
+									td #{team.name}
+									td #{team.team}
+									td #{team.player1}
+									td #{team.player2}
+
+		// matches per match day
+		.col-md-6
+			h2.page-header Spieltage
+			#matchDaysWrapper
+				each matchDay in matchDays
+					h3.page-header #{matchDay.number} (#{matchDay.dateFrom} - #{matchDay.dateTo})
+					#matchesWrapper
+						table.table.table-bordered.table-hover
+							thead
+								tr
+									th Datum
+									th Team 1
+									th Team 2
+									th Ergebnis
+							tbody
+								each match in matchDay.matches
+									tr
+										td #{match.date}
+										td #{match.team1.name}
+										td #{match.team2.name}
+										td #{match.scoreTeam1} : #{match.scoreTeam2}
