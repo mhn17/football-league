@@ -2,7 +2,6 @@ extends layout
 
 block content
 
-	.row
 		.col-md-6
 			.row
 				// table
@@ -54,11 +53,16 @@ block content
 
 		// matches per match day
 		.col-md-6
-			h2.page-header Spieltage
+			h2.page-header Spieltag
+			p
+				select.form-control#showMatchDay
+					each matchDay, index in matchDays
+						option(value=index) #{matchDay.number} (#{matchDay.dateFrom} - #{matchDay.dateTo})
+
+
 			#matchDaysWrapper
-				each matchDay in matchDays
-					h3.page-header #{matchDay.number} (#{matchDay.dateFrom} - #{matchDay.dateTo})
-					#matchesWrapper
+				each matchDay, index in matchDays
+					div.matchDayWrapper(class=index !== 0 ? "hidden " + index : index)
 						table.table.table-bordered.table-hover
 							thead
 								tr
