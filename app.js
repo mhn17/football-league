@@ -5,15 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var teams = require('./routes/api/teams');
-var matchDays = require('./routes/api/matchDays');
-var matches = require('./routes/api/matches');
+var routes = require('./app/routes/index');
+var teams = require('./app/routes/api/teams');
+var matchDays = require('./app/routes/api/matchDays');
+var matches = require('./app/routes/api/matches');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public

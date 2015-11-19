@@ -3,8 +3,8 @@
  */
 
 var assert = require('chai').assert;
-var TableService = require('../../services/tableService');
-var TableRow = require('../../services/tableRow');
+var TableService = require('../../app/services/tableService');
+var TableRow = require('../../app/services/tableRow');
 
 describe('table service', function () {
 	describe('#getCurrentTable', function () {

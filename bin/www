@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var debug = require('debug')('fifa-liga');
 var app = require('../app');
-var models = require("../models");
+var models = require("../app/models");
 
 app.set('port', process.env.PORT || 3000);
 
