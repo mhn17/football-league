@@ -53,16 +53,17 @@ block content
 
 		// matches per match day
 		.col-md-6
-			h2.page-header Spieltag
+			h2.page-header Spieltage
+				button.glyphicon.glyphicon-plus.pull-right.btn(type="button" data-toggle="modal" data-target="#addMatchDayModal")
 			p
 				select.form-control#showMatchDay
-					each matchDay, index in matchDays
-						option(value=index) #{matchDay.number} (#{matchDay.dateFrom} - #{matchDay.dateTo})
+					each matchDay in matchDays
+						option(value=matchDay.number) #{matchDay.number} (#{matchDay.dateFrom} - #{matchDay.dateTo})
 
 
 			#matchDaysWrapper
-				each matchDay, index in matchDays
-					div.matchDayWrapper.hidden(class=index)
+				each matchDay in matchDays
+					div.matchDayWrapper.hidden(class=matchDay.number)
 						table.table.table-bordered.table-hover
 							thead
 								tr
