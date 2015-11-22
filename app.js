@@ -12,6 +12,7 @@ var matches = require('./app/routes/api/matches');
 var table = require('./app/routes/api/table');
 
 var app = express();
+app.locals.moment = require('moment');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));

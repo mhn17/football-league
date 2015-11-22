@@ -5,7 +5,7 @@ block content
 		.col-md-6
 			.row
 				// table
-				h2.page-header Table
+				h2.page-header Tabelle
 				#tableWrapper
 					table.table.table-bordered.table-hover
 						thead
@@ -62,7 +62,7 @@ block content
 
 			#matchDaysWrapper
 				each matchDay, index in matchDays
-					div.matchDayWrapper(class=index !== 0 ? "hidden " + index : index)
+					div.matchDayWrapper.hidden(class=index)
 						table.table.table-bordered.table-hover
 							thead
 								tr
@@ -73,7 +73,7 @@ block content
 							tbody
 								each match in matchDay.matches
 									tr
-										td #{match.date}
+										td #{moment(match.date).format('DD.MM.YYYY')}
 										td #{match.team1.name}
 										td #{match.team2.name}
 										td #{match.scoreTeam1} : #{match.scoreTeam2}
