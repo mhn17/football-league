@@ -4,7 +4,7 @@ div(class="modal fade" id="addMatchDayModal" tabindex="-1" role="dialog")
 		div.modal-content
 			div.modal-header
 				button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-					span(aria-hidden="true")&times;
+					span(aria-hidden="true") &times;
 				h4.modal-title#myModalLabel Spieltag hinzufügen
 			div.modal-body
 				form#addMatchDayForm
@@ -20,3 +20,36 @@ div(class="modal fade" id="addMatchDayModal" tabindex="-1" role="dialog")
 			div.modal-footer
 				button(type="button" class="btn btn-default" data-dismiss="modal") Schließen
 				button#submitAddMatchDay(type="button" class="btn btn-success") Speichern
+				
+// addMatchModal
+div(class="modal fade" id="addMatchModal" tabindex="-1" role="dialog")
+	div(class="modal-dialog" role="document")
+		div.modal-content
+			div.modal-header
+				button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+					span(aria-hidden="true") &times;
+				h4.modal-title#myModalLabel Spiel hinzufügen
+			div.modal-body
+				form#addMatchForm
+					.form-group
+						label.control-label(for="matchDayNumber") Spieltag
+						div#match-day-number-formatted
+						input#match-day-number(name="matchDayNumber" type="hidden")
+					.form-group
+						label.control-label(for="date") Datum
+						input#match-dateFrom.form-control(name="date" type="date")
+					.form-group
+						label.control-label(for="team1") Team 1
+						select#match-team1.form-control(name="team1Id")
+					.form-group
+						label.control-label(for="team2Id") Team 2
+						select#match-team2.form-control(name="team2Id")
+					.form-group
+						label.control-label(for="scroreTeam1") Tore Team 1
+						input#match-scroreTeam1.form-control(name="scoreTeam1" type="number" min="0" max="100" step="1")
+					.form-group
+						label.control-label(for="scroreTeam2") Tore Team 2
+						input#match-scroreTeam1.form-control(name="scoreTeam2" type="number" min="0" max="100" step="1")
+			div.modal-footer
+				button(type="button" class="btn btn-default" data-dismiss="modal") Schließen
+				button#submitAddMatch(type="button" class="btn btn-success") Speichern
