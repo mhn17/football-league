@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var debug = require('debug')('fifa-liga');
+var debug = require('debug')('football-league');
 var app = require('../app');
 var models = require("../app/models");
 

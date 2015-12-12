@@ -6,7 +6,8 @@ var async = require('async');
 var models  = require('./../models');
 var express = require('express');
 var router = express.Router();
-var TableService = require('./../services/tableService')
+var TableService = require('./../services/tableService');
+var config = require(__dirname + '/../../config/config-project.json');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -41,6 +42,7 @@ router.get('/', function(req, res) {
 		var tableService = new TableService(results.matchData.matches, results.teams);
 		var table =  tableService.getCurrentTable();
 		res.render('index', {
+			title: config.title,
 			table: tableService.getCurrentTable(),
 			teams: results.teams, 
 			matchDays: results.matchData.matchDays
