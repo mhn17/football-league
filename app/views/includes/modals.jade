@@ -33,23 +33,55 @@ div(class="modal fade" id="addMatchModal" tabindex="-1" role="dialog")
 				form#addMatchForm
 					.form-group
 						label.control-label(for="matchDayNumber") Spieltag
-						div#match-day-number-formatted
-						input#match-day-number(name="matchDayNumber" type="hidden")
+						div#add-match-day-number-formatted
+						input#add-match-day-number(name="matchDayNumber" type="hidden")
 					.form-group
 						label.control-label(for="date") Datum
-						input#match-dateFrom.form-control(name="date" type="date")
+						input#add-match-date.form-control(name="date" type="datetime-local")
 					.form-group
 						label.control-label(for="team1") Team 1
-						select#match-team1.form-control(name="team1Id")
+						select#add-match-team1.form-control(name="team1Id")
 					.form-group
 						label.control-label(for="team2Id") Team 2
-						select#match-team2.form-control(name="team2Id")
+						select#add-match-team2.form-control(name="team2Id")
 					.form-group
-						label.control-label(for="scroreTeam1") Tore Team 1
-						input#match-scroreTeam1.form-control(name="scoreTeam1" type="number" min="0" max="100" step="1")
+						label.control-label(for="scoreTeam1") Tore Team 1
+						input#add-match-scoreTeam1.form-control(name="scoreTeam1" type="number" min="0" max="100" step="1")
 					.form-group
-						label.control-label(for="scroreTeam2") Tore Team 2
-						input#match-scroreTeam1.form-control(name="scoreTeam2" type="number" min="0" max="100" step="1")
+						label.control-label(for="scoreTeam2") Tore Team 2
+						input#add-match-scoreTeam1.form-control(name="scoreTeam2" type="number" min="0" max="100" step="1")
 			div.modal-footer
 				button(type="button" class="btn btn-default" data-dismiss="modal") Schließen
 				button#submitAddMatch(type="button" class="btn btn-success") Speichern
+				
+// editMatchModal
+div(class="modal fade" id="editMatchModal" tabindex="-1" role="dialog")
+	div(class="modal-dialog" role="document")
+		div.modal-content
+			div.modal-header
+				button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+					span(aria-hidden="true") &times;
+				h4.modal-title#myModalLabel Spiel bearbeiten
+			div.modal-body
+				form#editMatchForm(data-edit-match-id='')
+					.form-group
+						label.control-label(for="matchDayNumber") Spieltag
+						div#edit-match-day-number-formatted
+					.form-group
+						label.control-label(for="date") Datum
+						input#edit-match-date.form-control(name="date" type="datetime-local" value="")
+					.form-group
+						label.control-label(for="team1") Team 1
+						div#edit-match-team1
+					.form-group
+						label.control-label(for="team2Id") Team 2
+						div#edit-match-team2
+					.form-group
+						label.control-label(for="scoreTeam1") Tore Team 1
+						input#edit-match-scoreTeam1.form-control(name="scoreTeam1" type="number" min="0" max="100" step="1")
+					.form-group
+						label.control-label(for="scoreTeam2") Tore Team 2
+						input#edit-match-scoreTeam2.form-control(name="scoreTeam2" type="number" min="0" max="100" step="1")
+			div.modal-footer
+				button(type="button" class="btn btn-default" data-dismiss="modal") Schließen
+				button#submitEditMatch(type="button" class="btn btn-success") Speichern

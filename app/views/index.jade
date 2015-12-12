@@ -68,14 +68,20 @@ block content
 							thead
 								tr
 									th Datum
+									th Uhrzeit
 									th Team 1
 									th Team 2
 									th Ergebnis
+									th 
 							tbody
 								each match in matchDay.matches
-									tr
-										td #{moment(match.date).format('DD.MM.YYYY')}
-										td #{match.team1.name}
-										td #{match.team2.name}
-										td #{match.scoreTeam1} : #{match.scoreTeam2}
+									tr(class="tr-match-#{match.id}" data-match-id=match.id)
+										td.match-date(data-match-date=moment(match.date).format()) #{moment(match.date).format("DD.MM.YYYY")}
+										td.match-time #{moment(match.date).format("HH:mm")}
+										td.match-team1 #{match.team1.name}
+										td.match-team2 #{match.team2.name}
+										td.match-score(data-match-score-team1=match.scoreTeam1 data-match-score-team2=match.scoreTeam2) #{match.scoreTeam1} : #{match.scoreTeam2}
+										td.text-center
+											a.editMatch(href="#" data-match-id=match.id data-toggle="modal" data-target="#editMatchModal")
+												span.glyphicon.glyphicon-pencil
 						button.pull-right.btn.btn-primary(type="button" data-toggle="modal" data-target="#addMatchModal") Spiel hinzufügen
