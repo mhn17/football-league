@@ -1,87 +1,95 @@
 extends layout
 
 block content
-
-		.col-md-6
+	<!-- table section -->
+	section#table.section-table
+		.container
 			.row
-				// table
-				h2.page-header Tabelle
-				#tableWrapper
-					table.table.table-bordered.table-hover
-						thead
-							tr
-								th Platz
-								th Team
-								th Sp.
-								th g.
-								th u.
-								th v.
-								th Tore
-								th Diff.
-								th Punkte
-						tbody
-							each tableRow, index in table
-								tr
-									td #{index + 1}
-									td #{tableRow.teamName}
-									td #{tableRow.matchesPlayed}
-									td #{tableRow.matchesWon}
-									td #{tableRow.matchesDrawn}
-									td #{tableRow.matchesLost}
-									td #{tableRow.goalsFor}:#{tableRow.goalsAgainst}
-									td #{tableRow.goalDifference}
-									td #{tableRow.points}
-
-			.row
-				// teams			
-				h2.page-header Teams
-				#teamsWrapper
-					table.table.table-bordered.table-hover
-						thead
-							tr
-								th Name
-								th Team
-								th Spieler 1
-								th Spieler 2
-						tbody
-							each team in teams
-								tr
-									td #{team.name}
-									td #{team.team}
-									td #{team.player1}
-									td #{team.player2}
-
-		// matches per match day
-		.col-md-6
-			h2.page-header Spieltage
-				button.glyphicon.glyphicon-plus.pull-right.btn(type="button" data-toggle="modal" data-target="#addMatchDayModal")
-			p
-				select.form-control#showMatchDay
-					each matchDay in matchDays
-						option(value=matchDay.number) #{matchDay.number} (#{matchDay.dateFrom} - #{matchDay.dateTo})
-
-
-			#matchDaysWrapper
-				each matchDay in matchDays
-					div.matchDayWrapper.hidden(class=matchDay.number)
+				.col-lg-12
+					h2.page-header Tabelle
+					#tableWrapper
 						table.table.table-bordered.table-hover
 							thead
 								tr
-									th Datum
-									th Uhrzeit
-									th Team 1
-									th Team 2
-									th Ergebnis
-									th 
+									th Platz
+									th Team
+									th Sp.
+									th g.
+									th u.
+									th v.
+									th Tore
+									th Diff.
+									th Punkte
 							tbody
-								each match in matchDay.matches
-									tr(class="tr-match-#{match.id}" data-match-id=match.id)
-										td.match-date(data-match-date=moment(match.date).format()) #{moment(match.date).format("DD.MM.YYYY")}
-										td.match-time #{moment(match.date).format("HH:mm")}
-										td.match-team1 #{match.team1.name}
-										td.match-team2 #{match.team2.name}
-										td.match-score(data-match-score-team1=match.scoreTeam1 data-match-score-team2=match.scoreTeam2) #{match.scoreTeam1} : #{match.scoreTeam2}
-										td.text-center
-											a.editMatch(href="#" data-match-id=match.id data-toggle="modal" data-target="#editMatchModal")
-												span.glyphicon.glyphicon-pencil
-						button.pull-right.btn.btn-primary(type="button" data-toggle="modal" data-target="#addMatchModal") Spiel hinzufügen
+								each tableRow, index in table
+									tr
+										td #{index + 1}
+										td #{tableRow.teamName}
+										td #{tableRow.matchesPlayed}
+										td #{tableRow.matchesWon}
+										td #{tableRow.matchesDrawn}
+										td #{tableRow.matchesLost}
+										td #{tableRow.goalsFor}:#{tableRow.goalsAgainst}
+										td #{tableRow.goalDifference}
+										td #{tableRow.points}
+
+	<!-- match days section -->
+	section#match-days.section-match-days
+		.container
+			.row
+				.col-lg-12
+					h2.page-header Spieltage
+						button.glyphicon.glyphicon-plus.pull-right.btn(type="button" data-toggle="modal" data-target="#addMatchDayModal")
+					p
+						select.form-control#showMatchDay
+							each matchDay in matchDays
+								option(value=matchDay.number) #{matchDay.number} (#{matchDay.dateFrom} - #{matchDay.dateTo})
+
+					#matchDaysWrapper
+						each matchDay in matchDays
+							div.matchDayWrapper.hidden(class=matchDay.number)
+								table.table.table-bordered.table-hover
+									thead
+										tr
+											th Datum
+											th Uhrzeit
+											th Team 1
+											th Team 2
+											th Ergebnis
+											th 
+									tbody
+										each match in matchDay.matches
+											tr(class="tr-match-#{match.id}" data-match-id=match.id)
+												td.match-date(data-match-date=moment(match.date).format()) #{moment(match.date).format("DD.MM.YYYY")}
+												td.match-time #{moment(match.date).format("HH:mm")}
+												td.match-team1 #{match.team1.name}
+												td.match-team2 #{match.team2.name}
+												td.match-score(data-match-score-team1=match.scoreTeam1 data-match-score-team2=match.scoreTeam2) #{match.scoreTeam1} : #{match.scoreTeam2}
+												td.text-center
+													a.editMatch(href="#" data-match-id=match.id data-toggle="modal" data-target="#editMatchModal")
+														span.glyphicon.glyphicon-pencil
+								button.pull-right.btn.btn-primary(type="button" data-toggle="modal" data-target="#addMatchModal") Spiel hinzufügen
+
+
+	<!-- teams section -->
+	section#teams.section-teams
+		.container
+			.row
+				.col-lg-12
+					h2.page-header Teams
+
+					#teamsWrapper
+						table.table.table-bordered.table-hover
+							thead
+								tr
+									th Name
+									th Team
+									th Spieler 1
+									th Spieler 2
+							tbody
+								each team in teams
+									tr
+										td #{team.name}
+										td #{team.team}
+										td #{team.player1}
+										td #{team.player2}
