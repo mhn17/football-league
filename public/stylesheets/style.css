@@ -8,6 +8,27 @@ html {
     height: 100%;
 }
 
+/* navigation */
+.navbar-default .navbar-nav>li>a {
+	border-radius: 4px;
+	margin: 5px 0px 5px 5px;
+	padding: 10px 15px;
+	transition: background 0.5s ease 0s
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus, 
+.navbar-default .navbar-nav>.active>a:hover {
+	color: #fff;
+	background: #F57C00;
+}
+
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {
+	color: #fff;
+	background: #808080;
+}
+
 /* message */
 .message {
 	display: none;
@@ -16,13 +37,30 @@ html {
 
 /* Sections */
 section {
-	height: 100%;
+	min-height: 100%;
     padding-top: 90px;
     text-align: left;
     background: #fff;
+}
+
+
+.dark-section {
+	background: #eee;
+}
+
+.dark-section h2 {
+	border-bottom: 1px solid #ccc;
+}
+
+section>.container {
+	padding-bottom: 15px;
 }
 
 .section-table {
     padding-top: 130px;
 }
 
+/* Tables */
+table {
+	background: #fff;
+}
