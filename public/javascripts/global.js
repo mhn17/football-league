@@ -7,6 +7,14 @@ $(document).ready(function() {
 });
 
 // Functions ===================================================================
+// message box 
+function showMessageBox(type, message) {
+	$('#message-wrapper').html('<div class="alert alert-' + type + '" role="alert">' +
+		'<strong>' + message + '</strong>' +
+		'</div>');
+	$('.message').fadeIn(800).fadeTo(100, 0.1).fadeTo(200, 1.0).delay(3500).fadeOut(1000)
+}
+
 // match day
 function initShowMatchDay() {
 	// remove hidden class and hide using jquery
@@ -44,9 +52,8 @@ function updateShowMatchDay() {
 			showLastMatchDay();
 		},
 		error: function () {
-			$('#messageWrapper').html('<div class="alert alert-danger" role="alert">' +
-				'<strong>Es ist ein Fehler aufgetreten. Die Spieltage wurden nicht aktualisiert!</strong>' +
-				'</div>');
+			showMessageBox('danger', 
+				'Es ist ein Fehler aufgetreten. Die Spieltage wurden nicht aktualisiert!');
 		}
 	});
 }
@@ -60,15 +67,12 @@ function initAddMatchDayModal() {
 			success: function (msg) {
 				updateShowMatchDay();
 				$('#addMatchDayModal').modal('hide');
-				$('#messageWrapper').html('<div class="alert alert-success" role="alert">' +
-					'<strong>Spieltag wurde gespeicher!</strong>' +
-					'</div>');
+				showMessageBox('success', 'Spieltag wurde gespeicher!');
 			},
 			error: function () {
 				$('#addMatchDayModal').modal('hide');
-				$('#messageWrapper').html('<div class="alert alert-danger" role="alert">' +
-					'<strong>Es ist ein Fehler aufgetreten. Der Spieltag wurde nicht gespeichert!</strong>' +
-					'</div>');
+				showMessageBox('danger',
+					'Es ist ein Fehler aufgetreten. Der Spieltag wurde nicht gespeichert!');
 			}
 		});
 	});
@@ -133,15 +137,12 @@ function initAddMatchModal() {
 			success: function (msg) {
 				updateMatches();
 				$('#addMatchModal').modal('hide');
-				$('#messageWrapper').html('<div class="alert alert-success" role="alert">' +
-					'<strong>Spiel wurde gespeicher!</strong>' +
-					'</div>');
+				showMessageBox('success', 'Das Spiel wurde gespeichert!');
 			},
 			error: function () {
 				$('#addMatchModal').modal('hide');
-				$('#messageWrapper').html('<div class="alert alert-danger" role="alert">' +
-					'<strong>Es ist ein Fehler aufgetreten. Das Spiel wurde nicht gespeichert!</strong>' +
-					'</div>');
+				showMessageBox('danger',
+					'Es ist ein Fehler aufgetreten. Der Spiel wurde nicht gespeichert!');
 			}
 		});
 	});
@@ -194,15 +195,12 @@ function initEditMatchModal() {
 			success: function (msg) {
 				updateMatches();
 				$('#editMatchModal').modal('hide');
-				$('#messageWrapper').html('<div class="alert alert-success" role="alert">' +
-					'<strong>Spiel wurde gespeicher!</strong>' +
-					'</div>');
+				showMessageBox('success', 'Das Spiel wurde gespeichert!');
 			},
 			error: function () {
 				$('#editatchModal').modal('hide');
-				$('#messageWrapper').html('<div class="alert alert-danger" role="alert">' +
-					'<strong>Es ist ein Fehler aufgetreten. Das Spiel wurde nicht gespeichert!</strong>' +
-					'</div>');
+				showMessageBox('danger',
+					'Es ist ein Fehler aufgetreten. Das Spiel wurde nicht gespeichert!');
 			}
 		});
 	});

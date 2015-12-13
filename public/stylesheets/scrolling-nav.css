@@ -4,16 +4,6 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-body {
-    width: 100%;
-    height: 100%;
-}
-
-html {
-    width: 100%;
-    height: 100%;
-}
-
 @media(min-width:767px) {
     .navbar {
         padding: 20px 0;
@@ -25,16 +15,23 @@ html {
     .top-nav-collapse {
         padding: 0;
     }
-}
 
-/* Sections */
-section {
-	height: 100%;
-    padding-top: 30px;
-    text-align: left;
-    background: #fff;
-}
-
-.section-table {
-    padding-top: 75px;
+	.message {
+		position: fixed;
+		padding-top: 10px;
+		padding-bottom: 0;
+		top: 90px;
+		right: 0;
+		left: 0;
+		height: 62px;
+		z-index: 1000;
+		background: #fff;
+		-webkit-transition: top .5s ease-in-out;
+        -moz-transition: top .5s ease-in-out;
+        transition: top .5s ease-in-out;
+	}
+	
+	.message-collapse {
+		top: 50px;
+	}
 }
